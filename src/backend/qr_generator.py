@@ -35,7 +35,7 @@ def generate_qr():
     img = qr.make_image()
     img.save(IMAGE_NAME)
 
-
+    
 def show_qr():
     """
     Функция для вывода изображения QR-метки на экран (в новом окне)
