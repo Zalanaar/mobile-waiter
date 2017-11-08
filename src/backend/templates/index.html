@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile Waiter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+</head>
+<body ng-app="app">
+<header>
+    <div data-include="header"></div>
+</header>
+    <div class="container" style="margin-top: 10px" ng-controller="AppCtrl">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1">
+                    <form>
+                        <h2>Sign In</h2>
+                        <label for="authToken_email">Email</label><br/><br/>
+                        <input type="text" class="form-control" ng-model="authToken.email" id="authToken_email"><br/>
+                        <input type="button" class="btn btn-default" value="Sign in" ng-click="signIn(authToken)">
+                    </form>
+            </div>
+
+            <div class="col-md-4 col-md-offset-2">
+                    <form>
+                        <h2>Sign Up</h2>
+                        <label for="reg_email">Email</label><br/>
+                        <input type="text" class="form-control" ng-model="reg.email" id="reg_email"><br/>
+                        <label for="reg_tel">Phone number</label><br/>
+                        <input type="tel" class="form-control" ng-model="reg.tel" id="reg_tel"><br/>
+                        <input type="button" class="btn btn-default" value="Sign up" ng-click="signUp(reg)">
+                    </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/include.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

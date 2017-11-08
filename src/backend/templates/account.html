@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+<body ng-app="app">
+<header>
+    <div data-include="header"></div>
+</header>
+{# Exclude html from rendering #}
+{% raw %}
+<div class="container" ng-controller="AppCtrl">
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Add new dish</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="category">Category</label>
+                        <input type="text" id="category" class="form-control" ng-model="newDish.category">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" ng-model="newDish.name">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control" rows="3" style="max-width:100%" ng-model="newDish.description"></textarea>
+                        <label for="weight">Weight</label>
+                        <input type="number" id="weight" class="form-control" ng-model="newDish.weight">
+                        <label for="caloricity">Caloricity</label>
+                        <input type="number" id="caloricity" class="form-control" ng-model="newDish.caloricity">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close window</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDish(newDish)">Add new dish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 20px 0">
+        Name: {{client.name}} <br/>
+        Tel: {{client.tel}} <br/>
+        Address: {{client.address}} <br/>
+        Description: {{client.description}} <br/>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                <div class="col-md-1"><h2>Menu</h2></div>
+                <div class="col-md-1 col-md-offset-9">
+                    <a href="#myModal" class="btn btn-primary" data-toggle="modal" style="margin-top: 15px">New Dish</a>
+                </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                        <th>Caloricity</th>
+                        <th>Delete</th>
+                        <th>Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in menu">
+                        <td>{{item.category}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.weight}}</td>
+                        <td>{{item.caloricity}}</td>
+                        <td><input type="button" ng-click="delete($index)" value="Delete {{$index}}"></td>
+                        <td>Edit</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endraw %}
+<script src="{{ url_for('static', filename='js/include.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/account.js') }}"></script>
+</body>
+</html>
