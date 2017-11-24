@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "565607281777",
+    "firebase_url": "https://mobile-waiter-4ed9f.firebaseio.com",
+    "project_id": "mobile-waiter-4ed9f",
+    "storage_bucket": "mobile-waiter-4ed9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565607281777:android:eea738c29ca7e221",
+        "android_client_info": {
+          "package_name": "com.example.mw.mobilewaiter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565607281777-rlnpckescth4sm552njqmv2edgri41v6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mw.mobilewaiter",
+            "certificate_hash": "a47025c5512386cb49827e826a41e5c1c5687de9"
+          }
+        },
+        {
+          "client_id": "565607281777-q19c8l6ir1nvmhemeleuee7pjg9njha3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRvEQyOljn1Pi_v-nMbBb8IuTslKuXy0c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565607281777-q19c8l6ir1nvmhemeleuee7pjg9njha3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
