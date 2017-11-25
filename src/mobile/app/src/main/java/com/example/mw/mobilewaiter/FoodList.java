@@ -1,5 +1,6 @@
 package com.example.mw.mobilewaiter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,7 +71,12 @@ public class FoodList extends AppCompatActivity {
                 foodViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(FoodList.this, ""+local.getName(), Toast.LENGTH_SHORT).show();
+
+                        //new activity (food description)
+                        Intent footDetail = new Intent(FoodList.this, FoodDetail.class);
+                        footDetail.putExtra("FoodId", adapter.getRef(position).getKey()); // send food id to new activity
+                        startActivity(footDetail);
+
                     }
                 });
             }
