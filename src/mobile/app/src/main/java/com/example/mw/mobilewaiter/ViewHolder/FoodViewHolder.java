@@ -2,35 +2,34 @@ package com.example.mw.mobilewaiter.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mw.mobilewaiter.Interface.ItemClickListener;
 import com.example.mw.mobilewaiter.R;
-
 
 /**
  * Created by andre on 25.11.2017.
  */
 
-public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtMenuName;
-    public ImageView imageView;
+    public TextView food_name;
+    public ImageView food_image;
 
     private ItemClickListener itemClickListener;
 
-    public MenuViewHolder(View itemView) {
-        super(itemView);
-
-        txtMenuName = (TextView)itemView.findViewById(R.id.menu_name);
-        imageView = (ImageView)itemView.findViewById(R.id.menu_image);
-
-        itemView.setOnClickListener(this);
-    }
-
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+    }
+
+    public FoodViewHolder(View itemView) {
+        super(itemView);
+
+        food_name = (TextView)itemView.findViewById(R.id.food_name);
+        food_image = (ImageView)itemView.findViewById(R.id.food_image);
+
+        itemView.setOnClickListener(this);
     }
 
     @Override
