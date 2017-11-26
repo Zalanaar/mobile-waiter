@@ -37,6 +37,9 @@ dependencies {
     compile 'info.hoang8f:fbutton:1.0.5'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
 
+    // https://github.com/journeyapps/zxing-android-embedded
+    compile 'com.journeyapps:zxing-android-embedded:3.5.0'
+
     //noinspection GradleCompatible
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
