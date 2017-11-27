@@ -89,8 +89,9 @@ public class SignIn extends AppCompatActivity {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Intent home = new Intent(this, Home.class);
+                home.putExtra("RestaurantId", result.getContents());
                 startActivity(home);
                 finish();
             }

@@ -56,7 +56,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textStyle="bold"
-                            android:text=" РУБ" />
+                            android:textSize="24sp"
+                            android:padding="7dp"
+                            android:text="₽" />
 
                         <TextView
                             android:id='@+id/food_price'
@@ -70,6 +72,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content" />
 
+
                     </LinearLayout>
 
                     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -79,11 +82,9 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginBottom="18dp"
-                        app:textSize="8sp"
+                        app:textSize="7sp"
                         app:initialNumber="1"
                         app:finalNumber="10"
-
-
 
                         />
                 </LinearLayout>
