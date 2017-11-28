@@ -16,8 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class SignIn extends AppCompatActivity {
@@ -55,13 +53,18 @@ public class SignIn extends AppCompatActivity {
                             //get user info
                             mDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            user.setPhone(edtPhone.getText().toString());  //set phone
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
+
+                                Intent homeIntent = new Intent(SignIn.this, Home.class);
                                 Common.currentUser = user;
-                                IntentIntegrator barcodeScanner = new IntentIntegrator(SignIn.this);
-                                barcodeScanner.setOrientationLocked(false);
-                                barcodeScanner.initiateScan();
+                                startActivity(homeIntent);
+                                finish();
+
+
                             } else {
                                 Toast.makeText(SignIn.this, "Wrong password !", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                         else{
@@ -79,24 +82,5 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Get the results:
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                //Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                Intent home = new Intent(this, Home.class);
-                home.putExtra("RestaurantId", result.getContents());
-                startActivity(home);
-                finish();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }

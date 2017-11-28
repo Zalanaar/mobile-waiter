@@ -33,7 +33,6 @@ public class Home extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference category;
     TextView txtFullName;
-    String restaurantId;
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -59,8 +58,8 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               Intent cartIntent = new Intent(Home.this,Cart.class);
+               startActivity(cartIntent);
             }
         });
 
@@ -84,20 +83,12 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        //get intent here
-        if(getIntent() != null)
-            restaurantId = getIntent().getStringExtra("RestaurantId");
-        if(!restaurantId.isEmpty() && restaurantId != null)
-        {
-            loadMenu(restaurantId);
-        }
-
-        //loadMenu();
+        loadMenu();
     }
 
-    private void loadMenu(String restaurantId) {
+    private void loadMenu() {
         adapter = new FirebaseRecyclerAdapter<Category,
-                MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category.orderByChild("RestId").equalTo(restaurantId)) {
+                MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int i) {
                 viewHolder.txtMenuName.setText(model.getName());
