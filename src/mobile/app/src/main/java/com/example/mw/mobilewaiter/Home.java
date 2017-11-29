@@ -33,6 +33,7 @@ public class Home extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference category;
     TextView txtFullName;
+    String restaurantId;
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -83,12 +84,18 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        loadMenu();
+        //get intent here
+        if(getIntent() != null)
+            restaurantId = getIntent().getStringExtra("RestaurantId");
+        if(!restaurantId.isEmpty() && restaurantId != null)
+        {
+            loadMenu(restaurantId);
+        }
     }
 
-    private void loadMenu() {
+    private void loadMenu(String restaurantId) {
         adapter = new FirebaseRecyclerAdapter<Category,
-                MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
+                MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category.orderByChild("RestId").equalTo(restaurantId)) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int i) {
                 viewHolder.txtMenuName.setText(model.getName());
