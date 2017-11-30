@@ -9,8 +9,9 @@ import java.util.List;
 public class Request {
     private String phone;
     private String name;
-    private  String table;
+    private String table;
     private String total;
+    private String status;
     private List<Order> foods;
 
     public Request(){}
@@ -21,6 +22,15 @@ public class Request {
         this.table = table;
         this.total = total;
         this.foods = foods;
+        this.status = "0";  //0:placed, 1:shipping, 2:shipped
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPhone() {

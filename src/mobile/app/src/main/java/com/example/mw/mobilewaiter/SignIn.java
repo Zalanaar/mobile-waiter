@@ -41,47 +41,54 @@ public class SignIn extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Common.isConnectedToInternet(getBaseContext())) {
 
-                final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-                mDialog.setMessage("Please waiting...");
-                mDialog.show();
+                    final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
+                    mDialog.setMessage("Please waiting...");
+                    mDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //check user in db
-                        if(dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            //get user info
-                            mDialog.dismiss();
-                            User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
-                            user.setPhone(edtPhone.getText().toString());  //set phone
-                            if (user.getPassword().equals(edtPassword.getText().toString())) {
+                            //check user in db
+                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                                //get user info
+                                mDialog.dismiss();
+                                User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(edtPhone.getText().toString());  //set phone
+                                if (user.getPassword().equals(edtPassword.getText().toString())) {
 
-                                Common.currentUser = user;
-                                IntentIntegrator barcodeScanner = new IntentIntegrator(SignIn.this);
-                                barcodeScanner.setOrientationLocked(false);
-                                barcodeScanner.initiateScan();
+                                    Common.currentUser = user;
+                                    IntentIntegrator barcodeScanner = new IntentIntegrator(SignIn.this);
+                                    barcodeScanner.setOrientationLocked(false);
+                                    barcodeScanner.initiateScan();
 
 
+                                } else {
+                                    Toast.makeText(SignIn.this, "Wrong password !", Toast.LENGTH_SHORT).show();
+
+                                }
                             } else {
-                                Toast.makeText(SignIn.this, "Wrong password !", Toast.LENGTH_SHORT).show();
+                                mDialog.dismiss();
+                                Toast.makeText(SignIn.this, "User not exist in DB!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
-                        else{
-                            mDialog.dismiss();
-                            Toast.makeText(SignIn.this, "User not exist in DB!", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    Toast.makeText(SignIn.this, "Please check your connection!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
+
         });
 
     }
