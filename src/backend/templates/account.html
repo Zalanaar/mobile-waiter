@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+
+<header>
+    <div class="container" style="margin-top: 30px">
+    <h1>Mobile Waiter</h1>
+</div>
+</header>
+
+<body>
+<div class="container">
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new dish</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                    {% for item in info %}
+                        <label>{{ item }}</label>
+                        <input type="text" name="{{ item }}" class="form-control">
+                    {% endfor %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close window</button>
+                            <input value="Add new dish" type="submit" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 20px 0">
+        Name: {{client.name}} <br/>
+        Tel: {{client.tel}} <br/>
+        Address: {{client.address}} <br/>
+        Description: {{client.description}} <br/>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                <div class="col-md-1"><h2>Menu</h2></div>
+                <div class="col-md-1 col-md-offset-9">
+                    <a href="#myModal" class="btn btn-primary" data-toggle="modal" style="margin-top: 15px">New Dish</a>
+                </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        {% for item in info %}
+                            <th>{{ item }}</th>
+                        {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for k, v in items.items() %}
+                        <tr>
+                            {% for value in v.values() %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+</body>
+</html>
