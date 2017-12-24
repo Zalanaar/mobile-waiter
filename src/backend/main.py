@@ -1,9 +1,10 @@
 from flask import *
 
 app = Flask(__name__, static_url_path='')
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 
-FOOD_INFO = "Название Описание Цена Картинка".split()
+FOOD_INFO = "Название Описание Цена Картинка Категория".split()
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -11,8 +12,8 @@ def index():
     if request.method == 'POST':
         form = request.form
         if "Sign In" in form:
-            print(form["email"])
             if True:
+                session['user'] = form['phone']
                 return redirect(url_for("account"))
         elif "Sign Up" in form:
             print(form["email"], form["phone"])
@@ -23,39 +24,14 @@ def index():
 
 @app.route("/account/", methods=['GET', 'POST'])
 def account():
+    user = session['user']
     if request.method == "POST":
         print(*request.form.items())
-    client = {
-        'name': 'kek',
-        'tel': 'kek',
-        'address': 'kek',
-        'description': 'kek',
-    }
-    items = {
-        'shava': {
-            'Название': 'kek',
-            'Описание': 'kek',
-            'Цена': 'kek',
-            'Картинка': 'kek',
-        },
-        'morsik': {
-            'Название': 'kek',
-            'Описание': 'kek',
-            'Цена': 'kek',
-            'Картинка': 'kek',
-        }
-    }
-    return render_template('account.html', client=client, info=FOOD_INFO, items=items)
+    # client = {
+    #     'name': 'kek',
+    #     'tel': 'kek',
+    # }
+    items = [['kek', 'kek', 'kek', 'kek', 'kek'],
+             ['shpek', 'shpek', 'shpek', 'shpek', 'shpek']]
 
-
-
-# # Запрос на header от index.html
-# @app.route('/views/<path:file>')
-# def send_header(file):
-#     return send_from_directory('templates/views', file)
-#
-#
-# # Запрос на header от account.html
-# @app.route('/account/views/<path:file>')
-# def send_header_acc(file):
-#     return send_from_directory('templates/views', file)
+    return render_template('account.html', info=FOOD_INFO, items=items)

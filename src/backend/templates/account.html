@@ -17,6 +17,29 @@
 
 <body>
 <div class="container">
+
+    <div id="Category" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new category</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control">
+                        <input type="hidden" name="category_name">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close window</button>
+                            <input value="Add new category" type="submit" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -40,19 +63,13 @@
         </div>
     </div>
 
-    <div class="row" style="margin: 20px 0">
-        Name: {{client.name}} <br/>
-        Tel: {{client.tel}} <br/>
-        Address: {{client.address}} <br/>
-        Description: {{client.description}} <br/>
-    </div>
-
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
                 <div class="col-md-1"><h2>Menu</h2></div>
                 <div class="col-md-1 col-md-offset-9">
+                    <a href="#Category" class="btn btn-primary" data-toggle="modal" style="margin-top: 15px">New Category</a>
                     <a href="#myModal" class="btn btn-primary" data-toggle="modal" style="margin-top: 15px">New Dish</a>
                 </div>
                 </div>
@@ -67,11 +84,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for k, v in items.items() %}
+                    {% for item in items %}
                         <tr>
-                            {% for value in v.values() %}
-                            <td>{{ value }}</td>
-                            {% endfor %}
+                        {% for categoty in item %}
+                            <td>{{ categoty }}</td>
+                        {% endfor %}
                         </tr>
                     {% endfor %}
                     </tbody>
