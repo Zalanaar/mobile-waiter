@@ -8,6 +8,7 @@ public class User {
     private String Name;
     private String Password;
     private String Phone;
+    private String Table;
 
     public User() {
 
@@ -40,4 +41,8 @@ public class User {
     public void setPassword(String password) {
         Password = password;
     }
+
+    public String getTable() { return Table; }
+
+    public void setTable(String table) { Table = table; }
 }

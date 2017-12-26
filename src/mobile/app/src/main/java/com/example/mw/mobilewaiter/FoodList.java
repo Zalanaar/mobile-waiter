@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mw.mobilewaiter.Common.Common;
 import com.example.mw.mobilewaiter.Interface.ItemClickListener;
 import com.example.mw.mobilewaiter.Model.Food;
 import com.example.mw.mobilewaiter.ViewHolder.FoodViewHolder;
@@ -50,7 +51,13 @@ public class FoodList extends AppCompatActivity {
             categoryId = getIntent().getStringExtra("CategoryId");
         if(!categoryId.isEmpty() && categoryId != null)
         {
-            loadListFood(categoryId);
+            if(Common.isConnectedToInternet(getBaseContext()))
+                loadListFood(categoryId);
+            else
+            {
+                Toast.makeText(FoodList.this, "Please check your connection!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
     }
