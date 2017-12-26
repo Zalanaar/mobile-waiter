@@ -81,7 +81,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
                     .buildRound(""+listData.get(position).getQuantity(), Color.RED);
             holder.img_cart_count.setImageDrawable(drawable);
 
-            Locale locale = new Locale("en", "US");
+            Locale locale = new Locale("ru", "RU");
             NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
             int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
             holder.txt_price.setText(fmt.format(price));

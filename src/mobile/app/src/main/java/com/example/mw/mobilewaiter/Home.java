@@ -1,5 +1,6 @@
 package com.example.mw.mobilewaiter;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,19 +22,32 @@ import android.widget.Toast;
 import com.example.mw.mobilewaiter.Common.Common;
 import com.example.mw.mobilewaiter.Interface.ItemClickListener;
 import com.example.mw.mobilewaiter.Model.Category;
+import com.example.mw.mobilewaiter.Model.Request;
+import com.example.mw.mobilewaiter.Model.User;
 import com.example.mw.mobilewaiter.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.squareup.picasso.Picasso;
+
+import java.util.Timer;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseDatabase database;
     DatabaseReference category;
+    DatabaseReference wait_req;
     TextView txtFullName;
     String restaurantId;
+    String string;
+    String restaurantTable;
+    Integer key = 0;
+    DataSnapshot dataSnapshot;
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -52,8 +66,7 @@ public class Home extends AppCompatActivity
         //Init Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
-
-
+        wait_req = database.getReference("Waiters Requests");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +74,44 @@ public class Home extends AppCompatActivity
             public void onClick(View view) {
                Intent cartIntent = new Intent(Home.this,Cart.class);
                startActivity(cartIntent);
+            }
+        });
+
+        FloatingActionButton wait = (FloatingActionButton) findViewById(R.id.wait_btn);
+        wait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                wait_req.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        //check user in db
+                        if (dataSnapshot.child(Common.currentUser.getPhone()).exists()) {
+                            key = 2;
+                        } else {
+                            key = 1;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                if (key == 1){
+                    Toast.makeText(Home.this, "Please wait! Your waiter is on the way!", Toast.LENGTH_SHORT).show();
+                    Request request = new Request(
+                            Common.currentUser.getTable()
+                    );
+                    wait_req.child(String.valueOf(Common.currentUser.getPhone()))
+                            .setValue(request);
+                }
+                else if (key > 1){
+                    Toast.makeText(Home.this, "You have already called the waiter!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -93,11 +144,21 @@ public class Home extends AppCompatActivity
         }
 
 
+
+
+
         //get intent here
         if(getIntent() != null)
-            restaurantId = getIntent().getStringExtra("RestaurantId");
+            string = getIntent().getStringExtra("RestaurantId");
+            String[] parts = string.split("-");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            restaurantId = part1;
+            restaurantTable = part2;
+
         if(!restaurantId.isEmpty() && restaurantId != null)
         {
+            Common.currentUser.setTable(restaurantTable);
             loadMenu(restaurantId);
         }
     }

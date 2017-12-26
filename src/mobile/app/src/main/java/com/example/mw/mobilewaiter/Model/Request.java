@@ -25,6 +25,10 @@ public class Request {
         this.status = "0";  //0:placed, 1:shipping, 2:shipped
     }
 
+    public Request(String table) {
+        this.table = table;
+    }
+
     public String getStatus() {
         return status;
     }

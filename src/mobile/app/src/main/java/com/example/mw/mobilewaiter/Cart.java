@@ -80,26 +80,11 @@ public class Cart extends AppCompatActivity {
     }
 
     private void showAlertDialog(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Cart.this);
-        alertDialog.setTitle("One more step!");
-        alertDialog.setMessage("Enter the number of your table:");
 
-        final EditText edtTable = new EditText(Cart.this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        edtTable.setLayoutParams(lp);
-        alertDialog.setView(edtTable);
-        alertDialog.setIcon(R.drawable.ic_shopping_cart_black_24dp);
-
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
                 Request request = new Request(
                         Common.currentUser.getPhone(),
                         Common.currentUser.getName(),
-                        edtTable.getText().toString(),
+                        Common.currentUser.getTable(),
                         txtTotalPrice.getText().toString(),
                         cart
                 );
@@ -111,17 +96,7 @@ public class Cart extends AppCompatActivity {
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(Cart.this,"Thank you , Order Place", Toast.LENGTH_SHORT).show();
                 finish();
-            }
-        });
 
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        alertDialog.show();
     }
 
     private void loadListFood(){
