@@ -28,6 +28,8 @@
                     <form method="POST">
                         <label>Name</label>
                         <input type="text" name="name" class="form-control">
+                        Image:<br>
+                        <input type="url" name="image">
                         <input type="hidden" name="category_name">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close window</button>
@@ -86,8 +88,8 @@
                     <tbody>
                     {% for item in items %}
                         <tr>
-                        {% for categoty in item %}
-                            <td>{{ categoty }}</td>
+                        {% for category in item %}
+                            <td>{{ category }}</td>
                         {% endfor %}
                         </tr>
                     {% endfor %}
